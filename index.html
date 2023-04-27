@@ -14,31 +14,51 @@
     <title>Study Buddy Interactive Map</title>
 </head>
 <body>
+    <!-- début header -->
+    <section id="header_1">
+        <div class="logo_1">
+          <img id="imgLogo_1" src="images/studyBuddyLogo-removebg-preview.png" alt="logo"> 
+        </div> 
+        <div class="onglet_1">
+            <ol>
+                <li class="menus_1"><a href="#">cours</a></li>
+                <li class="menus_1"><a href="#">maps</a></li>
+                <li class="menus_1"><a href="#">contact</a></li>
+                <a href="#"><i id="menus_1" class="fa-solid fa-user"></a></i>
+            </ol>
+        </div> 
+    </section>
+    <!-- fin header -->
+
     <div id="map"></div>
-        <dialog id="laModale">
-            <p>Ajouter un nouveau marker :</p>
-            <form id="form" method="dialog">
-                <p>
-                    <label>Titre :
-                        <input type="text" id="titre" />
-                    </label>
-                </p>
-                <p>
-                    <label>Image :
-                        <input type="text" id="image" />
-                    </label>
-                </p>
-                <p>
-                    <label>Info :
-                        <input type="text" id="info" />
-                    </label>
-                </p>
-                <div>
-                    <button value="non">Annuler</button>
-                    <button value="oui">Valider</button>
-                </div>
-            </form>
-        </dialog>
+
+    <!-- début modale  -->
+    <dialog id="laModale">
+        <p>Ajoutez un nouveau lieu :</p>
+        <form id="form" method="dialog">
+            <p>
+                <label>Nom :
+                    <input type="text" id="nom" placeholder="Nom du lieu" />
+                </label>
+            </p>
+            <p>
+                <label>Image :
+                    <input type="url" id="image" placeholder="url de votre image"/>
+                </label>
+            </p>
+            <p>
+                <label>Infos :
+                    <input type="text" id="info" />
+                </label>
+            </p>
+            <div>
+                <button value="non">Annuler</button>
+                <button value="oui">Ajouter</button>
+            </div>
+        </form>
+    </dialog>
+    <!-- fin modale -->
+
     <script src="main.js"></script>
 </body>
 </html>
