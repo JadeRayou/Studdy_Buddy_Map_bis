@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
+     <link rel="stylesheet" href="style.css">
+    <title>Study Buddy Interactive Map</title>
+</head>
+<body>
+    <div id="map"></div>
+        <dialog id="laModale">
+            <p>Ajouter un nouveau marker :</p>
+            <form id="form" method="dialog">
+                <p>
+                    <label>Titre :
+                        <input type="text" id="titre" />
+                    </label>
+                </p>
+                <p>
+                    <label>Image :
+                        <input type="text" id="image" />
+                    </label>
+                </p>
+                <p>
+                    <label>Info :
+                        <input type="text" id="info" />
+                    </label>
+                </p>
+                <div>
+                    <button value="non">Annuler</button>
+                    <button value="oui">Valider</button>
+                </div>
+            </form>
+        </dialog>
+    <script src="main.js"></script>
+</body>
+</html>
