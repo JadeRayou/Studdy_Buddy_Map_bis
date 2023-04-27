@@ -1,15 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Gluten:wght@700&family=Josefin+Slab&family=Sora:wght@300&display=swap');
+
+
+html body{
+    margin:0;
+    padding: 0;
+    list-style: none;
+}
+
+body{
+    background-image: url(images/background.jpg); 
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+/* début header Bintou */
+.logo_1 img{
+    width: 200px;
+}
+
+.onglet_1 ol{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    list-style: none;
+    font-size: 24px;
+    padding:30px;
+    box-shadow: 5px 5px 10px rgba(10, 5, 5, 0.5);
+    border-radius: 30px;
+    margin-right: 45px;
+    color: #E7C6FF;
+    background-color: rgba(255,255,255,0.7);
+    min-width: 600px;
+}
+
+
+section#header_1{
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    margin: 30px 150px;
+    align-items: center; 
+}
+
+.onglet_1 a{
+    text-decoration: none;
+    padding-bottom: 5px;
+    background-size: 0% 0.1em;
+    background-position-x:100% ;
+    background-position-y:50% ;
+    background-repeat: no-repeat;
+    color:#C8B6FF ;
+    font-family: "Sora";
+}
+
+
+.onglet_1 a:hover{
+    background-size: 100% 0.5em;
+    color:#E7C6FF ;
+}
+
+.menu_icon_1{
+    width: 30px;
+    cursor: pointer;
+    margin-left:40px ;
+}
+/* fin du header :bintou*/
+
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     }
-    body {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
     #map {
-        width: 600px;
+        width: 1000px;
         height: 600px;
     }
