@@ -9,64 +9,69 @@ var modal = document.querySelector('#laModale');
 var inputNom = document.querySelector('#nom');
 var inputImage = document.querySelector('#image');
 var inputInfo = document.querySelector('#info');
-var coord
+var coord;
+var marker;
 
-function onMapClick(e) {
-    modal.showModal();
-    console.log(e.latlng);
-    var marker = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(map);
-    coord = e.latlng;
-    marker.bindPopup("<strong>" + marker.titre + "</strong><br><img src='" + marker.image + "'><br>" + marker.info + "<br>" );
-    // Add event listener to marker to allow deletion
-    marker.on('dblclick', function(e) {
-        map.removeLayer(marker);
-        // Remove marker from the array
-        tableauMarker = tableauMarker.filter(function(obj) {
-            return obj.coordonée !== marker.getLatLng();
-        });
-        // Update local storage
-        localStorage.setItem('savetableauMarker', JSON.stringify(tableauMarker));
-    });
+var tableauMarker;
+
+try {
+    // on essaye de recuperer le tableau dans le localstorage
+    tableauMarker = JSON.parse(localStorage.getItem('savetableauMarker_v2')) || [];
+}
+catch (error) {
+    // si ça ne fonctionne pas, on crée un tableau vide
+    tableauMarker = [];
+    // et on ne fait rien avec l'erreur
 }
 
+// on enregistre les coordonnées du click et on affiche la modale
+function onMapClick(e) {
+    coord = e.latlng;
+    modal.showModal();
+}
 map.on('click', onMapClick);
+
+// on enregistre les infos rentrées dans la modale sous forme d'objet pour chaque marker et on l'enregistre dans le localStorage
 modal.addEventListener('close', function () {
-    console.log(modal.returnValue);
-    if (modal.returnValue == 'oui') {
-        ajoutMarker(inputNom.value, inputImage.value, inputInfo.value, coord);
+    if (modal.returnValue === 'oui') {
+        tableauMarker.push({
+            titre : inputNom.value,
+            image : inputImage.value,
+            info : inputInfo.value,
+            coordonnée : coord
+        });
+        // Update local storage
+        localStorage.setItem('savetableauMarker_v2', JSON.stringify(tableauMarker));
+        ajouterMarker(inputNom.value, )
+        // on vide les champs de la modale
+        inputNom.value = "";
+        inputImage.value = "";
+        inputInfo.value = "";
     }
 });
 
-function ajoutMarker(w, x, y, z) {
-    tableauMarker.push({
-        titre : w,
-        image : x,
-        info : y,
-        coordonée : z
-    })
-    console.log(tableauMarker);
-    // Enregistre tableauMarker dans le localstorage avec le nom savetableauMarker
-    localStorage.setItem('savetableauMarker', JSON.stringify(tableauMarker));
+// on ajoute le marker sur la map avec le popup qui correspond
+function ajouterMarker() {
+    marker = new L.Marker([coord.lat, coord.lng]).addTo(map);
+    marker.bindPopup("<strong>" + inputNom.value + "</strong><br><img src='" + inputImage.value + "'><br>" + inputInfo.value + "<br>" + "<button type='button' class='delete' onclick='supprimeMarker("+ coord.lat + ", " + coord.lng + ")'>suppr</button>");
 }
 
-// Récupère le tableau de markers sauvegardé dans le localStorage
-var tableauMarker = JSON.parse(localStorage.getItem('savetableauMarker')) || [];
-var savedMarkers = localStorage.getItem('savetableauMarker');
+// on charge les markers du localstorage
+for (var i = 0; i < tableauMarker.length; i++) {
+    ajoutMarkerSurLaMap(tableauMarker[i].titre, tableauMarker[i].image, tableauMarker[i].info, tableauMarker[i].coordonnée);
+}
 
-if (savedMarkers) {
-    savedMarkers = JSON.parse(savedMarkers);
-    // Ajoute chaque marker à la carte
-    tableauMarker.forEach(function(marker) {
-        var newMarker = new L.marker(marker.coordonée).addTo(map);
-        newMarker.bindPopup("<strong>" + marker.titre + "</strong><br><img src='" + marker.image + "'><br>" + marker.info + "<br>" );
+// supprimer un marker
+function supprimeMarker(lat, lng) {
+    map.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+            if (layer.getLatLng().lat === lat && layer.getLatLng().lng === lng) {
+                map.removeLayer(layer);
+            }
+        }
     });
+    tableauMarker = tableauMarker.filter(function (marker) {
+        return marker.coordonnée.lat !== lat || marker.coordonnée.lng !== lng;
+    });
+    localStorage.setItem('savetableauMarker_v2', JSON.stringify(tableauMarker))
 }
-// var popup = L.popup();
-// var photoImg = '<img src="https://static.pexels.com/photos/189349/pexels-photo-189349.jpeg" height="150px" width="150px"/>';
-// function onMapClick(e) {
-//     popup
-//         .setLatLng(e.latlng)
-//         .setContent("<center>My Photo </center>" + "</br>"+ photoImg)
-//         .openOn(map);
-// }
-// map.on('click', onMapClick);
