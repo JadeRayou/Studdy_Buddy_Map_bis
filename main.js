@@ -9,10 +9,12 @@ var modal = document.querySelector('#laModale');
 var inputNom = document.querySelector('#nom');
 var inputImage = document.querySelector('#image');
 var inputInfo = document.querySelector('#info');
-var coord;
-var marker;
-
-var tableauMarker;
+var filterMusées = document.querySelector('#filterMusées')
+var filterAssociations = document.querySelector('filterAssociations');
+var coordonnée;
+var tableauMarker ;
+var radios = document.getElementsByName('filterForMap');
+var valeur;
 
 try {
     // on essaye de recuperer le tableau dans le localstorage
@@ -22,6 +24,16 @@ catch (error) {
     // si ça ne fonctionne pas, on crée un tableau vide
     tableauMarker = [];
     // et on ne fait rien avec l'erreur
+}
+
+// fonction pour les boutons des filtres sur la modal
+function returnMuseesOrAssociations(){
+	if(document.getElementById('filterMusées').checked){
+		var valeur = document.getElementById('filterMusées').value;
+	} else { // si ce n'est pas l'un, c'est l'autre
+		var valeur = document.getElementById('filterAssociations').value;
+	}
+	return valeur;
 }
 
 // on enregistre les coordonnées du click et on affiche la modale
@@ -38,11 +50,12 @@ modal.addEventListener('close', function () {
             titre : inputNom.value,
             image : inputImage.value,
             info : inputInfo.value,
-            coordonnée : coord
+            coordonnée : coordonnée,
+            valeur : returnMuseesOrAssociations(),
         });
         // Update local storage
         localStorage.setItem('savetableauMarker_v2', JSON.stringify(tableauMarker));
-        ajouterMarker(inputNom.value, )
+        ajouterMarker(inputNom.value,inputImage.value, inputInfo.value, coordonnée, valeur )
         // on vide les champs de la modale
         inputNom.value = "";
         inputImage.value = "";
@@ -52,9 +65,17 @@ modal.addEventListener('close', function () {
 
 // on ajoute le marker sur la map avec le popup qui correspond
 function ajouterMarker() {
-    marker = new L.Marker([coord.lat, coord.lng]).addTo(map);
+    marker = new L.Marker([coord.lat, coord.lng],{ draggable: true }).addTo(map);
     marker.bindPopup("<strong>" + inputNom.value + "</strong><br><img src='" + inputImage.value + "'><br>" + inputInfo.value + "<br>" + "<button type='button' class='delete' onclick='supprimeMarker("+ coord.lat + ", " + coord.lng + ")'>suppr</button>");
 }
+
+// fonction pour déplacer le marker 
+marker.on('dragend', function(event) {
+    var marker = event.target;
+    var position = marker.getLatLng();
+    console.log(position);
+   
+});
 
 // on charge les markers du localstorage
 for (var i = 0; i < tableauMarker.length; i++) {
@@ -70,6 +91,7 @@ function supprimeMarker(lat, lng) {
             }
         }
     });
+    // test
     tableauMarker = tableauMarker.filter(function (marker) {
         return marker.coordonnée.lat !== lat || marker.coordonnée.lng !== lng;
     });
