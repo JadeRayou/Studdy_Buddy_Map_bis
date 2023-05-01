@@ -15,6 +15,16 @@ var coordonnée;
 var tableauMarker ;
 var radios = document.getElementsByName('filterForMap');
 var valeur;
+// ajouter une icon couleur
+var newicon = new L.Icon({
+    iconUrl: 'img/location-pin.png',
+    shadowUrl: 'img/marker-shadow.png',
+    iconSize: [50, 50],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+})
+
 
 try {
     // on essaye de recuperer le tableau dans le localstorage
@@ -39,6 +49,7 @@ function returnMuseesOrAssociations(){
 // on enregistre les coordonnées du click et on affiche la modale
 function onMapClick(e) {
     coord = e.latlng;
+    var marker = new L.Marker([e.latlng.lat, e.latlng.lng], {icon: newicon}).addTo(map);
     modal.showModal();
 }
 map.on('click', onMapClick);
