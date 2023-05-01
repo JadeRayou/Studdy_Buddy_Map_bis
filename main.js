@@ -91,6 +91,7 @@ function supprimeMarker(lat, lng) {
             }
         }
     });
+    // test
     tableauMarker = tableauMarker.filter(function (marker) {
         return marker.coordonnée.lat !== lat || marker.coordonnée.lng !== lng;
     });
