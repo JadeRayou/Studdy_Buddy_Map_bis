@@ -18,7 +18,6 @@ L'équipe Study Buddy :
 
 ### :woman_technologist: Brahiti Tekfa
 - [![GitHub badge](https://img.shields.io/badge/GitHub-purple?logo=github&logoColor=white&style=flat)](https://github.com/TEKFABRAHITI)
--
 
 ### :woman_technologist: Chetouani Latifa
 - [![GitHub badge](https://img.shields.io/badge/GitHub-purple?logo=github&logoColor=white&style=flat)](https://github.com/Ltifaa)
