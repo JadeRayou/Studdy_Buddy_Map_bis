@@ -16,6 +16,17 @@ var tableauMarker ;
 var radios = document.getElementsByName('filterForMap');
 var valeur;
 
+// ajouter une icon couleur
+var newicon = new L.Icon({
+    iconUrl: 'img/location-pin.png',
+    shadowUrl: 'img/marker-shadow.png',
+    iconSize: [50, 50],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+})
+
+
 try {
     // on essaye de recuperer le tableau dans le localstorage
     tableauMarker = JSON.parse(localStorage.getItem('savetableauMarker_v2')) || [];
@@ -26,9 +37,20 @@ catch (error) {
     // et on ne fait rien avec l'erreur
 }
 
+// fonction pour les boutons des filtres sur la modal
+function returnMuseesOrAssociations(){
+	if(document.getElementById('filterMusées').checked){
+		var valeur = document.getElementById('filterMusées').value;
+	} else { // si ce n'est pas l'un, c'est l'autre
+		var valeur = document.getElementById('filterAssociations').value;
+	}
+	return valeur;
+}
+
 // on enregistre les coordonnées du click et on affiche la modale
 function onMapClick(e) {
     coord = e.latlng;
+    var marker = new L.Marker([e.latlng.lat, e.latlng.lng], {icon: newicon}).addTo(map);
     modal.showModal();
 }
 map.on('click', onMapClick);
@@ -40,11 +62,12 @@ modal.addEventListener('close', function () {
             titre : inputNom.value,
             image : inputImage.value,
             info : inputInfo.value,
-            coordonnée : coord
+            coordonnée : coordonnée,
+            valeur : returnMuseesOrAssociations(),
         });
         // Update local storage
         localStorage.setItem('savetableauMarker_v2', JSON.stringify(tableauMarker));
-        ajoutMarkerSurLaMap(inputTitre.value, inputImage.value, inputInfo.value, coordonnée);
+        ajouterMarker(inputNom.value,inputImage.value, inputInfo.value, coordonnée, valeur )
         // on vide les champs de la modale
         inputNom.value = "";
         inputImage.value = "";
@@ -67,9 +90,16 @@ function ajoutMarkerSurLaMap(titre, image, info, coordonnée) {
         + '<p>' + info + '</p>'
         + '<img src="' + image + '" alt="' + titre + '"style="width:60px;height:50px;">'
         + '<p><a style="cursor: pointer" onclick="supprimeMarker('+ coordonnée.lat + ', ' + coordonnée.lng + ')">Supprimer</a></p>'
-    
     );
 }
+
+// fonction pour déplacer le marker 
+marker.on('dragend', function(event) {
+    var marker = event.target;
+    var position = marker.getLatLng();
+    console.log(position);
+   
+});
 
 // on charge les markers du localstorage
 for (var i = 0; i < tableauMarker.length; i++) {
@@ -93,6 +123,7 @@ function supprimeMarker(lat, lng) {
             }
         }
     });
+    // test
     tableauMarker = tableauMarker.filter(function (marker) {
         return marker.coordonnée.lat !== lat || marker.coordonnée.lng !== lng;
     });

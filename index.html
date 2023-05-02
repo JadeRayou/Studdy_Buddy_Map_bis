@@ -30,6 +30,8 @@
     </section>
     <!-- fin header -->
 
+    <H3 class="titre">Ajouter vos lieux prefere pour apprendre !!!</h3>
+
     <div id="map"></div>
 
     <!-- début modale  -->
@@ -51,13 +53,22 @@
                     <input type="text" id="info" placeholder="Informations"/>
                 </label>
             </p>
-            <div>
-                <button value="non">Annuler</button>
-                <button value="oui">Ajouter</button>
+
+            <input type="radio" id="filterMusées" name="filterForMap" value="musées">
+            <label for="filter">Musées</label>
+            
+            <input type="radio" id="filterAssociations" name="filterForMap" value="associations">
+            <label for="filter">Associations</label>
+
+
+            <div id="buttons_1">
+                <button class="modalBtn_1" value="non">Annuler</button>
+                <button class="modalBtn_1" value="oui">Ajouter</button>
             </div>
         </form>
     </dialog>
     <!-- fin modale -->
+    <!-- test pour git -->
 
     <script src="main.js"></script>
 </body>
