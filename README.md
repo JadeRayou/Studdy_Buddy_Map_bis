@@ -12,19 +12,19 @@ Ce projet reste très simple à utiliser. Il vous suffira de cloner ce dépôt G
 
 ## Remerciements
 L'équipe Study Buddy :
-### Sidibe Bintou
+### :woman_technologist: Sidibe Bintou
 - [![GitHub badge](https://img.shields.io/badge/GitHub-purple?logo=github&logoColor=white&style=flat)](https://github.com/bintou-sidibe)
 - [![LinkedIn badge](https://img.shields.io/badge/LinkedIn-blue?logo=linkedin&logoColor=white&style=flat)](https://www.linkedin.com/in/bintou-sidibe-34a62a211/)
 
-### Brahiti Tekfa
+### :woman_technologist: Brahiti Tekfa
 - [![GitHub badge](https://img.shields.io/badge/GitHub-purple?logo=github&logoColor=white&style=flat)](https://github.com/TEKFABRAHITI)
 -
 
-### Chetouani Latifa
+### :woman_technologist: Chetouani Latifa
 - [![GitHub badge](https://img.shields.io/badge/GitHub-purple?logo=github&logoColor=white&style=flat)](https://github.com/Ltifaa)
 - [![LinkedIn badge](https://img.shields.io/badge/LinkedIn-blue?logo=linkedin&logoColor=white&style=flat)](https://www.linkedin.com/in/latifa-chetouani-14676a1b7/)
 
-### Rayou Jade
+### :woman_technologist: Rayou Jade
 - [![GitHub badge](https://img.shields.io/badge/GitHub-purple?logo=github&logoColor=white&style=flat)](https://github.com/JadeRayou)
 - [![LinkedIn badge](https://img.shields.io/badge/LinkedIn-blue?logo=linkedin&logoColor=white&style=flat)](https://www.linkedin.com/in/jade-rayou-388360177/)
 
