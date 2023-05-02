@@ -6,13 +6,15 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 var modal = document.querySelector('#laModale');
-var inputNom = document.querySelector('#nom');
+var inputTitre = document.querySelector('#titre');
 var inputImage = document.querySelector('#image');
 var inputInfo = document.querySelector('#info');
-var coord;
-var marker;
-
-var tableauMarker;
+var filterMusées = document.querySelector('#filterMusées')
+var filterAssociations = document.querySelector('filterAssociations');
+var coordonnée;
+var tableauMarker ;
+var radios = document.getElementsByName('filterForMap');
+var valeur;
 
 try {
     // on essaye de recuperer le tableau dans le localstorage
@@ -42,7 +44,7 @@ modal.addEventListener('close', function () {
         });
         // Update local storage
         localStorage.setItem('savetableauMarker_v2', JSON.stringify(tableauMarker));
-        ajouterMarker(inputNom.value, )
+        ajoutMarkerSurLaMap(inputTitre.value, inputImage.value, inputInfo.value, coordonnée);
         // on vide les champs de la modale
         inputNom.value = "";
         inputImage.value = "";
@@ -51,15 +53,36 @@ modal.addEventListener('close', function () {
 });
 
 // on ajoute le marker sur la map avec le popup qui correspond
-function ajouterMarker() {
-    marker = new L.Marker([coord.lat, coord.lng]).addTo(map);
-    marker.bindPopup("<strong>" + inputNom.value + "</strong><br><img src='" + inputImage.value + "'><br>" + inputInfo.value + "<br>" + "<button type='button' class='delete' onclick='supprimeMarker("+ coord.lat + ", " + coord.lng + ")'>suppr</button>");
+function ajoutMarkerSurLaMap(titre, image, info, coordonnée) {
+    // Icon options
+    // var iconOptions = {
+    //     iconUrl: 'images/komarov-egor-sYwDefjO7fI-unsplash.jpg',
+    //     iconSize: [60, 50]
+    // }
+    // // Creating a custom icon
+    // var customIcon = L.icon(iconOptions);
+    var marker = new L.Marker([coordonnée.lat, coordonnée.lng],{ draggable: true }).addTo(map);
+    marker.bindPopup(
+        '<h2>' + titre + '</h2>'
+        + '<p>' + info + '</p>'
+        + '<img src="' + image + '" alt="' + titre + '"style="width:60px;height:50px;">'
+        + '<p><a style="cursor: pointer" onclick="supprimeMarker('+ coordonnée.lat + ', ' + coordonnée.lng + ')">Supprimer</a></p>'
+    
+    );
 }
 
 // on charge les markers du localstorage
 for (var i = 0; i < tableauMarker.length; i++) {
     ajoutMarkerSurLaMap(tableauMarker[i].titre, tableauMarker[i].image, tableauMarker[i].info, tableauMarker[i].coordonnée);
 }
+
+// fonction pour déplacer le marker 
+marker.on('dragend', function(event) {
+    var marker = event.target;
+    var position = marker.getLatLng();
+    console.log(position);
+   
+});
 
 // supprimer un marker
 function supprimeMarker(lat, lng) {
