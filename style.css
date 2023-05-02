@@ -176,4 +176,6 @@ section#header_1{
         text-decoration: underline;
         /* tesy1 */
     }
-    
+    Image{
+        width: 5px;
+    }

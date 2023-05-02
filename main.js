@@ -65,9 +65,16 @@ modal.addEventListener('close', function () {
 
 // on ajoute le marker sur la map avec le popup qui correspond
 function ajouterMarker() {
-    marker = new L.Marker([coord.lat, coord.lng],{ draggable: true }).addTo(map);
+    marker = new L.Marker([coord.lat, coord.lng],{icon: myIcon},{ draggable: true }).addTo(map);
     marker.bindPopup("<strong>" + inputNom.value + "</strong><br><img src='" + inputImage.value + "'><br>" + inputInfo.value + "<br>" + "<button type='button' class='delete' onclick='supprimeMarker("+ coord.lat + ", " + coord.lng + ")'>suppr</button>");
 }
+// Création de l'icône personnalisée
+var myIcon = L.icon({
+    iconUrl: '/images/finder.png',
+    iconSize: [50, 50],
+    iconAnchor: [21, 38],
+    popupAnchor: [0, -38]
+});
 
 // fonction pour déplacer le marker 
 marker.on('dragend', function(event) {
